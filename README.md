@@ -46,6 +46,7 @@ Simple use-case - generate a hash from a password and validate it.
             
     });
 
+See [test.js](https://github.com/andris9/pass/blob/master/test.js) for a better example
 
 License
 -------
