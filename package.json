@@ -20,5 +20,8 @@
             "url": "http://github.com/andris9/pass/blob/master/LICENSE"
         }
     ],
-    "keywords": ["apache", "password", "passwd", "htpasswd"]
+    "keywords": ["apache", "password", "passwd", "htpasswd"],
+    "scripts" : {
+        "test" : "node test.js"
+    }
 }
