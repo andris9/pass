@@ -1,6 +1,6 @@
 { 
     "name" : "pass",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "main" : "./index",
     "description": "Apache htpasswd password generator/validator",
     "author" : "Andris Reinman",
