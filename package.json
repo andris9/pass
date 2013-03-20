@@ -1,6 +1,6 @@
-{ 
+{
     "name" : "pass",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "main" : "./index",
     "description": "Apache htpasswd password generator/validator",
     "author" : "Andris Reinman",
@@ -8,8 +8,12 @@
         {
             "name":"andris",
             "email":"andris@node.ee"
+        },
+        {
+            "name":"rgeber",
+            "email":"geber@b1-systems.de"
         }
-    ],   
+    ],
     "repository" : {
         "type" : "git",
         "url" : "http://github.com/andris9/pass"

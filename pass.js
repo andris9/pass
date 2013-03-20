@@ -15,16 +15,28 @@ exports.generate = function(password, callback, param){
     var algorithm = param.algorithm ? param.algorithm : 'sha1';
     var digest = param.digest ? param.digest : 'base64';
 
-    var hash_prefix = {sha1: '{SHA}', md5: '$apr1$'};
+    var hash_prefix = {sha1: '{SHA}', md5: '$apr1$', crypt: ''};
 
-    try{
-        var c = crypto.createHash(algorithm);
-        c.update(password);
-        c = c.digest(digest);
-    }catch(E){
-        return callback && callback(E, null);
+    if (algorithm == 'crypt') {
+
+        exec('openssl passwd -crypt "' + password.replace(/"/,"\\\"") + '"', function(error, stdout, stderr) {
+
+          var debug=1;
+            if (error) return callback && callback(E, null);
+            return callback && callback(null, stdout.trim());
+        });
+
+    } else {
+        try{
+            var c = crypto.createHash(algorithm);
+            c.update(password);
+            c = c.digest(digest);
+
+        }catch(E){
+            return callback && callback(E, null);
+        }
+        callback && callback(null, hash_prefix[algorithm] + c);
     }
-    callback && callback(null, hash_prefix[algorithm] + c);
 }
 
 /**
