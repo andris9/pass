@@ -20,8 +20,6 @@ exports.generate = function(password, callback, param){
     if (algorithm == 'crypt') {
 
         exec('openssl passwd -crypt "' + password.replace(/"/,"\\\"") + '"', function(error, stdout, stderr) {
-
-          var debug=1;
             if (error) return callback && callback(E, null);
             return callback && callback(null, stdout.trim());
         });
