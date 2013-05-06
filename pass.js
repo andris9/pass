@@ -60,13 +60,13 @@ exports.validate = function(password, hash, callback){
     }
 
     //MD5 - $apr1$r31.....$HqJZimcKQFAMYayBlzkrA/ (myPassword)
-    if(hash.substr(0,6)=="$apr1$"){
+    if(hash.substr(0,6)=="$apr1$" || hash.substr(0,3)=='$1$'){
         parts = hash.split("$");
         parts.shift();
-        parts.shift();
+        var type = parts.shift();
         salt = parts.shift();
         hash = parts.join("$");
-        return validate_md5(password, hash, salt, callback);
+        return validate_md5(password, hash, salt, callback, type);
     }
 
     // CRYPT - rqXexS6ZhobKA (myPassword)
@@ -111,17 +111,20 @@ function validate_sha(password, hash, callback, param){
  * - password (String): password to be validated
  * - hash (String): password hash to be checked against
  * - callback (Function): callback
+ * - which password algorithm, defaults to "MD5-based password algorithm, Apache variant"
  *
  * Validates an APR1/MD5 password
  **/
-function validate_md5(password, hash, salt, callback){
+function validate_md5(password, hash, salt, callback, type){
+    type = type ? type : 'apr1';
+
     exec(
-            'openssl passwd -apr1 -salt '+salt+' "'+password.replace(/"/,"\\\"")+'"',
+            'openssl passwd -'+type+' -salt '+salt+' "'+password.replace(/"/,"\\\"")+'"',
             function (error, stdout, stderr) {
                 if(error){
                     return callback(error, null);
                 }
-                callback(null, stdout && stdout.trim()=='$apr1$'+salt+'$'+hash);
+                callback(null, stdout && stdout.trim()=='$'+type+'$'+salt+'$'+hash);
             }
     );
 }
