@@ -19,5 +19,8 @@ pass.validate("myPass", "{SHA}VBPuJHI7uixaa6LQGWx4s+5GKNE=", response.bind(this,
 pass.validate("myPassword", "$apr1$r31.....$HqJZimcKQFAMYayBlzkrA/", response.bind(this, "MD5   True ", true));
 pass.validate("myPass", "$apr1$r31.....$HqJZimcKQFAMYayBlzkrA/", response.bind(this, "MD5   False", false));
 
+pass.validate("myPassword", "$1$saltsalt$2vnaRpHa6Jxjz5n83ok8Z0", response.bind(this, "MD5_1 True ", true));
+pass.validate("myPass", "$1$saltsalt$2vnaRpHa6Jxjz5n83ok8Z0", response.bind(this, "MD5_1 False ", false));
+
 pass.validate("myPassword", "rqXexS6ZhobKA", response.bind(this, "CRYPT True ", true));
 pass.validate("myPass", "rqXexS6ZhobKA", response.bind(this, "CRYPT False", false));
